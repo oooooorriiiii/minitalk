@@ -1,6 +1,10 @@
 NAME	=	minitalk
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
+LDFLAGS	=	-L$(LIBFTDIR) $(patsubst lib%,-l%,$(basename $(LIBFT)))
+
+LIBFT		=	libft.a
+LIBFTDIR	=	libft
 
 SERVER		=	server
 SERVER_SRC	=	server.c
@@ -19,10 +23,10 @@ all: $(NAME)
 
 
 $(SERVER): $(SERVER_OBJ)
-	$(CC) $(CFLAGS) $(SERVER_OBJ) -o $(SERVER)
+	$(CC) $(CFLAGS) $(SERVER_OBJ) $(LDFLAGS) -o $(SERVER)
 
 $(CLIENT):	$(CLIENT_OBJ)
-	$(CC) $(CFLAGS) $(CLIENT_OBJ) -o $(CLIENT)
+	$(CC) $(CFLAGS) $(CLIENT_OBJ) $(LDFLAGS) -o $(CLIENT)
 
 $(NAME):	$(SERVER) $(CLIENT)
 
