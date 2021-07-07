@@ -7,21 +7,23 @@
 
 void	receiver(int signo)
 {
-	static	size_t	i;
-	static int	bit;
-	static char	c;
-	static char	buf[256];
+	static int	bit_i;
+	static char	received_char;
 
+	if (!(signo == SIGUSR1 || signo == SIGUSR2))
+		printf("i do not know signo = %d\n", signo);
 	if (signo == SIGUSR1)
-		c |= 1 << bit;
-	if (i == 7)
+		received_char |= (0x01 << bit_i);
+	if (bit_i == 7)
 	{
-		//TODO: compute character
-		c = 0;
-		i = 0;
+		write(STDOUT_FILENO, &received_char, 1);
+		bit_i = 0;
+		received_char = 0x00;
 	}
 	else
-		i++;
+	{
+		bit_i++;
+	}
 }
 
 int	main(void)

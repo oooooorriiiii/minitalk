@@ -12,11 +12,11 @@ int transmitter(pid_t pid, const char *massage)
         i = 0;
         while (i < 8)
         {
-            if (*massage & (1 << i))
+            if (*massage & (0x01 << i))
                 kill(pid, SIGUSR1);
             else
                 kill(pid, SIGUSR2);
-            usleep(100);
+            usleep(1000);
             i++;
         }
         massage++;
