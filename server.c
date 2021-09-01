@@ -1,9 +1,4 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <signal.h>
-
-#include "libft/libft.h"
-
+#include "minitalk.h"
 
 void	receiver(int signo)
 {
