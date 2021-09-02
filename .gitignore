@@ -52,5 +52,9 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# output
+server
+client
+
 # vscode
 .vscode
