@@ -3,7 +3,10 @@
 
 # include <unistd.h>
 # include <signal.h>
+# include <stdlib.h>
 # include <stdio.h> // Debug
+
+# define PID_MAX 99998
 
 int		ft_atoi(const char *nptr);
 void	ft_putchar_fd(char c, int fd);

@@ -55,6 +55,8 @@ dkms.conf
 # output
 server
 client
+server_bonus
+client_bonus
 
 # vscode
 .vscode

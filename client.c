@@ -14,7 +14,7 @@ int	transmitter(pid_t pid, const char *massage)
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
-			usleep(1000);
+			usleep(100);
 			i++;
 		}
 		massage++;
