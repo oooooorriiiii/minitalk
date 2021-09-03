@@ -14,7 +14,7 @@ int	transmitter(pid_t pid, const char *massage)
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
-			usleep(100);
+			usleep(50);
 			i++;
 		}
 		massage++;
@@ -29,6 +29,8 @@ int	main(int argc, char **argv)
 	if (argc != 3)
 		return (-1);
 	pid = ft_atoi(argv[1]);
+	if (pid < 0 || pid > PID_MAX)
+		return (-1);
 	transmitter(pid, argv[2]);
 	return (0);
 }
