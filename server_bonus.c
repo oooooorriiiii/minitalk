@@ -1,7 +1,18 @@
-#include "minitalk.h"
-#define BUFFER_SIZE 1024
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/09 02:41:06 by ymori             #+#    #+#             */
+/*   Updated: 2021/09/09 02:42:23 by ymori            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		checkpid(pid_t *pid, pid_t incomingpid)
+#include "minitalk.h"
+
+int	checkpid(pid_t *pid, pid_t incomingpid)
 {
 	if (*pid == 0)
 	{
@@ -14,7 +25,7 @@ int		checkpid(pid_t *pid, pid_t incomingpid)
 		kill(incomingpid, SIGUSR2);
 		return (1);
 	}
-	return (0); 
+	return (0);
 }
 
 void	sig_handler(int signo, siginfo_t *siginfo, void *oact)

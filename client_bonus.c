@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/09 02:33:20 by user42            #+#    #+#             */
+/*   Updated: 2021/09/09 02:44:04 by ymori            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
 int		g_ack_flag;
@@ -49,7 +61,7 @@ void	is_ack_flag(int signo)
 		g_ack_flag = 0;
 }
 
-int		connection_check(pid_t server_pid)
+int	connection_check(pid_t server_pid)
 {
 	if (server_pid < 1 || server_pid > PID_MAX)
 	{
@@ -75,7 +87,7 @@ int		connection_check(pid_t server_pid)
 		return (-1);
 	}
 	g_ack_flag = 0;
-	return (1);	
+	return (1);
 }
 
 void	sig_handler(int signo, siginfo_t *siginfo, void *oact)
@@ -110,6 +122,6 @@ int	main(int argc, char **argv)
 	act.sa_sigaction = sig_handler;
 	sigaction(SIGUSR1, &act, NULL);
 	sigaction(SIGUSR2, &act, NULL);
-	send_bit(argv[2],server_pid); 
+	send_bit(argv[2], server_pid); 
 	return (0);
 }

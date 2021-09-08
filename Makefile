@@ -46,7 +46,9 @@ $(CLIENT_BONUS): $(CLIENT_BONUS_OBJ) $(OBJS)
 
 .PHONY:	clean
 clean:
-	rm -rf $(SERVER_OBJ) $(CLIENT_OBJ) $(OBJS)
+	rm -rf $(SERVER_OBJ) $(CLIENT_OBJ) \
+			$(OBJS) \
+			$(SERVER_BONUS_OBJ) $(CLIENT_BONUS_OBJ)
 
 .PHONY: fclean
 fclean: clean
