@@ -6,30 +6,30 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:33:16 by user42            #+#    #+#             */
-/*   Updated: 2021/09/09 02:39:34 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/11 01:30:42 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	transmitter(pid_t pid, const char *massage)
+int	transmitter(pid_t pid, const char *message)
 {
 	int	i;
 
 	i = 0;
-	while (*massage)
+	while (*message)
 	{
 		i = 0;
 		while (i < 8)
 		{
-			if (*massage & (0x01 << i))
+			if (*message & (0x01 << i))
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
 			usleep(50);
 			i++;
 		}
-		massage++;
+		message++;
 	}
 	return (0);
 }

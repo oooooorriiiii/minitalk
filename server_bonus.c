@@ -6,62 +6,34 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:41:06 by ymori             #+#    #+#             */
-/*   Updated: 2021/09/09 02:42:23 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/11 02:03:07 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	checkpid(pid_t *pid, pid_t incomingpid)
-{
-	if (*pid == 0)
-	{
-		*pid = incomingpid;
-		kill(incomingpid, SIGUSR1);
-		return (1);
-	}
-	else if (*pid != incomingpid)
-	{
-		kill(incomingpid, SIGUSR2);
-		return (1);
-	}
-	return (0);
-}
-
 void	sig_handler(int signo, siginfo_t *siginfo, void *oact)
 {
 	static unsigned char	recived_char;
 	static int				bit_i;
-	static pid_t			pid;
-	static int				buf_i;
-	static char				buf[BUFFER_SIZE];
+	static pid_t			client_pid;
 
 	(void)oact;
-	if (checkpid(&pid, siginfo->si_pid))
-		return ;
-	printf("pid: %d\n", pid); //D
+	if (!client_pid)
+		client_pid = siginfo->si_pid;
 	if (signo == SIGUSR1)
 		recived_char |= (1 << bit_i);
 	if (bit_i == 7)
 	{
-		buf[buf_i] = recived_char;
-		if (recived_char == '\4')
-		{
-			kill(pid, SIGUSR1);
-			pid = 0;
-		}
-		else
-			buf_i++;
-		if (recived_char == '\4' || buf_i == BUFFER_SIZE)
-		{
-			write(STDOUT_FILENO, buf, buf_i);
-			buf_i = 0;
-		}
+		if (recived_char == '\0')
+			kill(client_pid, SIGUSR1); // Notify that charactor ACK has been recived.
+		write(STDOUT_FILENO, &recived_char, 1);
 		recived_char = 0;
 		bit_i = 0;
+		kill(client_pid, SIGUSR2); // Notify that charactor ACK has been recived.
 	}
 	else
-		buf_i++;
+		bit_i++;
 }
 
 int	main(void)
@@ -74,8 +46,8 @@ int	main(void)
 	ft_putnbr_fd(pid, STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	act.sa_sigaction = sig_handler;
-	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_SIGINFO;
+	sigemptyset(&act.sa_mask);
 	sigaction(SIGUSR1, &act, NULL);
 	sigaction(SIGUSR2, &act, NULL);
 	while (1)

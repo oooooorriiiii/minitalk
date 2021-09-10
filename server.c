@@ -6,7 +6,7 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:32:29 by user42            #+#    #+#             */
-/*   Updated: 2021/09/09 02:40:28 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/11 01:17:59 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	receiver(int signo)
 	static char	received_char;
 
 	if (!(signo == SIGUSR1 || signo == SIGUSR2))
-		ft_putstr_fd("i do not know signo\n", STDOUT_FILENO);
+		ft_putstr_fd("Signal error\n", STDOUT_FILENO);
 	if (signo == SIGUSR1)
 		received_char |= (0x01 << bit_i);
 	if (bit_i == 7)
