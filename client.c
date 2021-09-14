@@ -6,7 +6,7 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:33:16 by user42            #+#    #+#             */
-/*   Updated: 2021/09/11 01:30:42 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/15 00:28:23 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	if (argc != 3)
 		return (-1);
 	pid = ft_atoi(argv[1]);
-	if (pid < 0 || pid > PID_MAX)
+	if (pid <= 0 || pid > PID_MAX)
 		return (-1);
 	transmitter(pid, argv[2]);
 	return (0);
