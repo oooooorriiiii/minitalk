@@ -6,7 +6,7 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:41:06 by ymori             #+#    #+#             */
-/*   Updated: 2021/09/11 02:03:07 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/14 20:32:15 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,17 @@ void	sig_handler(int signo, siginfo_t *siginfo, void *oact)
 		recived_char |= (1 << bit_i);
 	if (bit_i == 7)
 	{
-		if (recived_char == '\0')
-			kill(client_pid, SIGUSR1); // Notify that charactor ACK has been recived.
-		write(STDOUT_FILENO, &recived_char, 1);
-		recived_char = 0;
-		bit_i = 0;
-		kill(client_pid, SIGUSR2); // Notify that charactor ACK has been recived.
+		if (recived_char == 0x04)
+		{
+			kill(client_pid, SIGUSR1);
+		}
+		else
+		{
+			write(STDOUT_FILENO, &recived_char, 1);
+			recived_char = 0;
+			bit_i = 0;
+			kill(client_pid, SIGUSR2);
+		}
 	}
 	else
 		bit_i++;
