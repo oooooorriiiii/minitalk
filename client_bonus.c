@@ -6,7 +6,7 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:33:20 by user42            #+#    #+#             */
-/*   Updated: 2021/09/14 20:33:58 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/14 22:27:27 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	transmitter(pid_t pid, char *message)
 void	sig_handler(int signo, siginfo_t *siginfo, void *oact)
 {
 	static int	send_byte;
+
 	(void)siginfo;
 	(void)oact;
 	if (signo == SIGUSR2)
@@ -66,7 +67,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	server_pid = ft_atoi(argv[1]);
-	if (server_pid <= 0 || server_pid > 99998)
+	if (server_pid <= 0 || server_pid > PID_MAX)
 		return (-1);
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = sig_handler;
@@ -74,6 +75,5 @@ int	main(int argc, char **argv)
 	sigaction(SIGUSR1, &act, NULL);
 	sigaction(SIGUSR2, &act, NULL);
 	transmitter(server_pid, argv[2]);
-	ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }
