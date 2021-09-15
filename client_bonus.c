@@ -6,7 +6,7 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:33:20 by user42            #+#    #+#             */
-/*   Updated: 2021/09/15 11:12:38 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/15 14:30:37 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	transmitter(pid_t pid, char *message)
 		send_char(pid, *message);
 		message++;
 	}
-	send_char(pid, 0x04);
 }
 
 void	sig_handler(int signo, siginfo_t *siginfo, void *oact)
@@ -48,11 +47,6 @@ void	sig_handler(int signo, siginfo_t *siginfo, void *oact)
 	{
 		ft_putstr_fd("\rSended byte: ", STDOUT_FILENO);
 		ft_putnbr_fd(++send_byte, STDOUT_FILENO);
-	}
-	if (signo == SIGUSR1)
-	{
-		ft_putstr_fd("\nSuccess\n", STDOUT_FILENO);
-		exit(0);
 	}
 }
 

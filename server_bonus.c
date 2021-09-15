@@ -6,7 +6,7 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:41:06 by ymori             #+#    #+#             */
-/*   Updated: 2021/09/14 22:26:22 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/15 14:30:08 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,16 @@ void	sig_handler(int signo, siginfo_t *siginfo, void *oact)
 	static pid_t			client_pid;
 
 	(void)oact;
-	if (!client_pid)
+	if (!client_pid || client_pid != siginfo->si_pid)
 		client_pid = siginfo->si_pid;
 	if (signo == SIGUSR1)
 		recived_char |= (1 << bit_i);
 	if (bit_i == 7)
 	{
-		if (recived_char == 0x04)
-		{
-			kill(client_pid, SIGUSR1);
-		}
-		else
-		{
-			write(STDOUT_FILENO, &recived_char, 1);
-			recived_char = 0;
-			bit_i = 0;
-			kill(client_pid, SIGUSR2);
-		}
+		write(STDOUT_FILENO, &recived_char, 1);
+		recived_char = 0;
+		bit_i = 0;
+		kill(client_pid, SIGUSR2);
 	}
 	else
 		bit_i++;
