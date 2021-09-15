@@ -10,7 +10,8 @@ CLIENT		=	client
 CLIENT_SRC	=	client.c
 CLIENT_OBJ	=	$(CLIENT_SRC:%.c=%.o)
 
-SRCS		=	utils.c
+SRCS		=	utils.c \
+				utils2.c
 OBJS		=	$(SRCS:%.c=%.o)
 
 SERVER_BONUS		=	server_bonus

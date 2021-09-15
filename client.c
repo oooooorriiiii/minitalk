@@ -6,7 +6,7 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:33:16 by user42            #+#    #+#             */
-/*   Updated: 2021/09/15 00:28:23 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/15 11:12:34 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ int	main(int argc, char **argv)
 {
 	pid_t	pid;
 
-	if (argc != 3)
+	if (argc != 3 || !arg1_checker(argv[1]))
+	{
+		ft_putstr_fd("Argument Error\n", STDOUT_FILENO);
 		return (-1);
+	}
 	pid = ft_atoi(argv[1]);
 	if (pid <= 0 || pid > PID_MAX)
 		return (-1);

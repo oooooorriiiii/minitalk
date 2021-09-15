@@ -6,7 +6,7 @@
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:33:20 by user42            #+#    #+#             */
-/*   Updated: 2021/09/15 00:15:29 by ymori            ###   ########.fr       */
+/*   Updated: 2021/09/15 11:12:38 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	main(int argc, char **argv)
 	struct sigaction	act;
 	int					server_pid;
 
-	if (argc != 3)
+	if (argc != 3 || !arg1_checker(argv[1]))
 	{
-		ft_putstr_fd("Argument Error", STDOUT_FILENO);
+		ft_putstr_fd("Argument Error\n", STDOUT_FILENO);
 		return (-1);
 	}
 	server_pid = ft_atoi(argv[1]);

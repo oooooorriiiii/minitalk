@@ -1,30 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymori <ymori@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 02:33:30 by user42            #+#    #+#             */
-/*   Updated: 2021/09/15 10:58:58 by ymori            ###   ########.fr       */
+/*   Created: 2021/09/15 11:00:26 by ymori             #+#    #+#             */
+/*   Updated: 2021/09/15 11:07:41 by ymori            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# include <unistd.h>
-# include <signal.h>
-# include <stdlib.h>
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
 
-# define PID_MAX 99998
-# define BUFFER_SIZE 1024
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
 
-int		ft_atoi(const char *nptr);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
-int		ft_isdigit(int c);
-int		arg1_checker(char *s);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
 
-#endif
+int	arg1_checker(char *s)
+{
+	size_t	i;
+	size_t	digit_i;
+
+	i = 0;
+	digit_i = 0;
+	while (s[i] != '\0')
+	{
+		if (ft_isdigit(s[i]))
+			digit_i++;
+		i++;
+	}
+	if (digit_i == ft_strlen(s))
+		return (1);
+	return (0);
+}
